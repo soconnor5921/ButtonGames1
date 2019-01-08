@@ -9,23 +9,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static sample.GameCode.timer;
-
 public class Main extends Application
 {
 
     public static int level = 1;
-    public static Button green = new Button();
-    public static Button blue = new Button();
-    public static Button red = new Button();
-    public static Button yellow = new Button();
-    public static boolean showing = false;
+    private static Button green = new Button();
+    private static Button blue = new Button();
+    private static Button red = new Button();
+    private static Button yellow = new Button();
+    private static boolean showing = false;
     private static long timeStep;
     private static List<Button> order = new ArrayList<Button>();
     private static String currentColor = "";
@@ -43,7 +40,7 @@ public class Main extends Application
         green.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                showing = true; currentColor = "green"; timer(green);
+                showing = true; currentColor = "green"; timer(green); isCorrect(green);
             }
         });
 
@@ -53,7 +50,7 @@ public class Main extends Application
         blue.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                showing = true; currentColor = "blue"; timer(blue);
+                showing = true; currentColor = "blue"; timer(blue); isCorrect(blue);
             }
         });
 
@@ -63,7 +60,7 @@ public class Main extends Application
         red.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                showing = true; currentColor = "red"; timer(red);
+                showing = true; currentColor = "red"; timer(red); isCorrect(red);
             }
         });
 
@@ -73,7 +70,7 @@ public class Main extends Application
         yellow.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                showing = true; currentColor = "yellow"; timer(yellow);
+                showing = true; currentColor = "yellow"; timer(yellow); isCorrect(yellow);
             }
         });
 
@@ -96,6 +93,7 @@ public class Main extends Application
         Button btn;
         btn = pickRandomColor();
         order.add(btn);
+        timer(btn);
         level++;
     }
 
@@ -149,6 +147,23 @@ public class Main extends Application
 
             }
         }.start();
+    }
+
+    public static boolean isCorrect(Button btn)
+    {
+        if(order.size() == 0)
+        {
+            System.out.println("no order");
+            return false;
+        }
+        else {
+            if (btn == order.get(order.size() - 1)) {
+                System.out.println("true");
+                return true;
+            }
+            System.out.println("false");
+            return false;
+        }
     }
 
 
